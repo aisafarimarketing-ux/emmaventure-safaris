@@ -96,8 +96,7 @@ p{margin:0}
 
 /* ---------- header ---------- */
 .hdr{position:sticky;top:0;z-index:60;background:rgba(22,19,15,.94);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--hairline)}
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .hdr__in{max-width:var(--maxw);margin-inline:auto;padding:.85rem var(--gut);
   display:flex;align-items:center;gap:1.4rem}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;flex:none}
@@ -171,7 +170,7 @@ p{margin:0}
 /* No gradient, no feather, no shadow on the hero. The footage is full bleed
    and ends on a hairline; the copy sits on the paper band beneath it. */
 /* Top padding was clamp(2.4rem,4vw,3.6rem) — 57.6px at 1440, under a 130px
-   cloud, which read as a band of empty paper rather than as breathing room.
+   old cloud join, which read as a band of empty paper rather than breathing room.
    A third of that, and the footage above grows to take the rest. */
 .hero__in{max-width:var(--maxw);margin-inline:auto;padding:clamp(.85rem,1.3vw,1.2rem) var(--gut) clamp(3rem,5vw,4.6rem);position:relative;z-index:2}
 .hero__cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
@@ -217,47 +216,18 @@ p{margin:0}
 .pill h3{font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)}
 
 
-/* --- the cloud join ---------------------------------------------------------
-   The footage used to stop at a 1px hairline, which reads as two things stacked.
-   Now the page ground rises into the bottom of the video as cloud, so the hero
-   and the band below it are one surface.
+/* --- the join -------------------------------------------------------------
+   There is no join treatment, and that is deliberate.
 
-   TWO LOBED LAYERS, NOT ONE. A single wave reads as a shape cut out of the
-   picture — you see the edge and you see that it is a decoration. A second,
-   paler layer sitting slightly higher gives the join depth, and the eye reads
-   depth as weather rather than as a border.
+   A hairline read as two things stacked. A scalloped SVG read as a doily. A
+   blurred cloud over a long gradient read as smoke and hid the bottom 40% of
+   the footage — on the elephant clip the herd and the ground were behind fog.
+   Every one of those was more visible than the edge it was hiding.
 
-   It is painted in --canvas, the same ground the band underneath uses, so there
-   is no seam to see: the video simply runs out. Nothing is masked away from the
-   footage itself, so the picture keeps its full frame — see the note in the
-   photo-art-direction skill about never solving an edge by dimming the image.
+   So the footage runs to its full height and the band below begins. The header
+   above has no hairline either, for the same reason. If a softer meeting is
+   ever wanted, it belongs in the grade of the clip, not in a layer on top of it.
    -------------------------------------------------------------------------- */
-.cloud{
-  position:absolute;left:0;right:0;bottom:-1px;
-  width:100%;height:clamp(110px,17vw,240px);
-  display:block;pointer-events:none;z-index:2;
-}
-/* Both layers are blurred past the point of having an edge. The near one still
-   reaches full opacity at the bottom, so the paper is solid where it meets the
-   band; the far one only tints the air above it. */
-.cloud__far{fill:var(--canvas);opacity:.5;filter:blur(34px)}
-.cloud__near{fill:var(--canvas);filter:blur(18px)}
-
-/* The gradient does most of the work. Five stops rather than two: a two-stop
-   fade over this distance bands visibly on a wide screen. It is the page
-   colour, not a grey wash — the footage keeps its own colour all the way down
-   and simply runs out of opacity. */
-.hero__media::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:34%;
-  z-index:1;pointer-events:none;
-  background:linear-gradient(to top,
-    var(--canvas) 0%,
-    color-mix(in srgb, var(--canvas) 92%, transparent) 16%,
-    color-mix(in srgb, var(--canvas) 68%, transparent) 36%,
-    color-mix(in srgb, var(--canvas) 36%, transparent) 58%,
-    color-mix(in srgb, var(--canvas) 12%, transparent) 78%,
-    transparent 100%);
-}
 
 /* The band that continues out of the hero carries no top rule and starts close,
    so the philosophy reads as the next breath rather than the next section. */
@@ -304,13 +274,6 @@ p{margin:0}
 
 @media (max-width:860px){
   .meet{grid-template-columns:minmax(0,1fr)}
-  /* The cloud is WIDER than the viewport on a phone, not shorter.
-     preserveAspectRatio="none" stretches the 1200-unit viewBox into 390px, which
-     squeezes fourteen lobes into the width of a hand and turns weather into a
-     doily. Overflowing the SVG sideways shows five or six lobes at something
-     near their drawn proportion instead. preserveAspectRatio cannot be set from
-     CSS, so this is the way to do it without a second copy of the markup. */
-  .cloud{width:260%;left:-80%;right:auto;height:clamp(96px,26vw,170px)}
 }
 
 /* numbered principles */
@@ -424,7 +387,7 @@ p{margin:0}
 }
 
 /* The torn brush band that used to sit under the hero is gone, and so are its
-   rules — no page carries class="torn" any more. The cloud join above does the
-   job it was doing, separating the hero from what follows, without asking for
-   the booking before the visitor knows who they are talking to. */
+   rules — no page carries class="torn" any more. Nothing replaced it: the hero
+   now simply ends and the next band begins, and the booking is no longer asked
+   for before the visitor knows who they are talking to. */
 
