@@ -157,7 +157,7 @@ p{margin:0}
 
 /* ---------- hero: footage block, copy on canvas. No overlay, no scrim. ---------- */
 .hero{background:var(--canvas)}
-.hero__media{position:relative;width:100%;height:clamp(21rem,68vh,46rem);overflow:hidden;background:var(--ebony);border-bottom:1px solid var(--hairline)}
+.hero__media{position:relative;width:100%;height:clamp(21rem,68vh,46rem);overflow:hidden;background:var(--ebony)}
 .hero__media img,.hero__media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   /* Upper third, not centre. Photographers put faces and horizons there, so a
      centred cover crop takes the head off first — which is exactly what the
@@ -212,6 +212,70 @@ p{margin:0}
 .pill{display:grid;gap:1rem;justify-items:center;text-align:center;align-content:start}
 .pill__icon{width:clamp(80px,9vw,120px);height:clamp(80px,9vw,120px);object-fit:contain}
 .pill h3{font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)}
+
+
+/* --- the cloud join ---------------------------------------------------------
+   The footage used to stop at a 1px hairline, which reads as two things stacked.
+   Now the page ground rises into the bottom of the video as cloud, so the hero
+   and the band below it are one surface.
+
+   TWO LOBED LAYERS, NOT ONE. A single wave reads as a shape cut out of the
+   picture — you see the edge and you see that it is a decoration. A second,
+   paler layer sitting slightly higher gives the join depth, and the eye reads
+   depth as weather rather than as a border.
+
+   It is painted in --canvas, the same ground the band underneath uses, so there
+   is no seam to see: the video simply runs out. Nothing is masked away from the
+   footage itself, so the picture keeps its full frame — see the note in the
+   photo-art-direction skill about never solving an edge by dimming the image.
+   -------------------------------------------------------------------------- */
+.cloud{
+  position:absolute;left:0;right:0;bottom:-1px;
+  width:100%;height:clamp(64px,9vw,132px);
+  display:block;pointer-events:none;z-index:2;
+}
+/* The far layer is blurred as well as pale. A crisp second edge just reads as a
+   second border; softened, it reads as depth in the air. */
+.cloud__far{fill:var(--canvas);opacity:.5;filter:blur(7px)}
+.cloud__near{fill:var(--canvas)}
+
+/* The band that continues out of the hero carries no top rule and starts close,
+   so the philosophy reads as the next breath rather than the next section. */
+.band--joined{padding-top:clamp(1.6rem,3vw,2.8rem)}
+
+/* --- the meet band: who we are, the facts, and who you will speak to --------
+   This replaces three stacked sections — a dark call strip, a facts row and a
+   three-paragraph biography. Everything they carried is said once here: who
+   they are, the four facts, the person who answers, and the two calls. The
+   long version lives on /about, which is what the link at the end is for.
+   -------------------------------------------------------------------------- */
+.meet{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:clamp(2rem,4.5vw,4.5rem);align-items:start}
+.meet__say .display{margin:.7rem 0 1.1rem}
+.meet__say .facts{margin-top:clamp(1.6rem,2.6vw,2.2rem)}
+
+.meet__ask{display:grid;gap:1.15rem;padding:clamp(1.5rem,2.6vw,2rem);
+  background:var(--surface);border:1px solid var(--hairline)}
+.meet__who{display:flex;align-items:center;gap:.9rem}
+.meet__who img{width:66px;height:66px;border-radius:50%;object-fit:cover;
+  object-position:50% 30%;border:2px solid var(--brass);flex:none}
+.meet__who .l{display:block;font-family:var(--font-mono);font-size:.75rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--brass)}   /* 6.15 on sand */
+.meet__who .n{display:block;font-family:var(--font-display);font-size:1.25rem;color:var(--ink)}
+.meet__note{font-size:1rem;color:var(--body)}
+.meet__cta{display:flex;gap:.7rem;flex-wrap:wrap}
+.meet__more{margin-top:.2rem}
+
+@media (max-width:860px){
+  .meet{grid-template-columns:minmax(0,1fr)}
+  /* The cloud is WIDER than the viewport on a phone, not shorter.
+     preserveAspectRatio="none" stretches the 1200-unit viewBox into 390px, which
+     squeezes fourteen lobes into the width of a hand and turns weather into a
+     doily. Overflowing the SVG sideways shows five or six lobes at something
+     near their drawn proportion instead. preserveAspectRatio cannot be set from
+     CSS, so this is the way to do it without a second copy of the markup. */
+  .cloud{width:260%;left:-80%;right:auto;height:clamp(56px,14vw,96px)}
+}
 
 /* numbered principles */
 .principle{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;padding-top:1.5rem;border-top:1px solid var(--hairline)}
@@ -323,24 +387,8 @@ p{margin:0}
   .hero__fig{aspect-ratio:4/3}
 }
 
-/* --- torn brush band: separates the hero from what follows --- */
-.torn{position:relative;background:var(--canvas);padding:0}
-.torn__ink{
-  background:var(--ebony);
-  -webkit-mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20210%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C26%20C60%2C10%20118%2C30%20176%2C17%20C243%2C3%20300%2C27%20362%2C19%20C430%2C11%20486%2C31%20548%2C22%20C612%2C13%20668%2C29%20730%2C20%20C796%2C11%20850%2C28%20912%2C18%20C978%2C8%201032%2C27%201094%2C17%20C1140%2C10%201172%2C22%201200%2C14%20L1200%2C178%20C1150%2C190%201104%2C172%201046%2C184%20C984%2C197%20930%2C177%20868%2C188%20C804%2C199%20752%2C179%20690%2C190%20C628%2C201%20574%2C181%20512%2C192%20C450%2C203%20396%2C183%20334%2C193%20C272%2C203%20220%2C185%20158%2C194%20C100%2C202%2052%2C186%200%2C196%20Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E");mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20210%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C26%20C60%2C10%20118%2C30%20176%2C17%20C243%2C3%20300%2C27%20362%2C19%20C430%2C11%20486%2C31%20548%2C22%20C612%2C13%20668%2C29%20730%2C20%20C796%2C11%20850%2C28%20912%2C18%20C978%2C8%201032%2C27%201094%2C17%20C1140%2C10%201172%2C22%201200%2C14%20L1200%2C178%20C1150%2C190%201104%2C172%201046%2C184%20C984%2C197%20930%2C177%20868%2C188%20C804%2C199%20752%2C179%20690%2C190%20C628%2C201%20574%2C181%20512%2C192%20C450%2C203%20396%2C183%20334%2C193%20C272%2C203%20220%2C185%20158%2C194%20C100%2C202%2052%2C186%200%2C196%20Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E");
-  -webkit-mask-size:100% 100%;mask-size:100% 100%;
-  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
-  padding:clamp(3rem,5vw,4.2rem) var(--gut) clamp(3.2rem,5.4vw,4.6rem);
-}
-.torn__in{max-width:var(--maxw);margin-inline:auto;display:flex;align-items:center;
-  gap:clamp(1.2rem,3vw,2.6rem);flex-wrap:wrap;justify-content:center;text-align:center}
-.torn h2{font-family:var(--font-display);font-size:clamp(1.5rem,2.8vw,2.3rem);color:var(--canvas);line-height:1.1}
-.torn .btn--brass{background:var(--brass-soft);color:var(--ebony)}   /* 7.19 on ebony */
-.torn .btn--brass:hover{background:var(--canvas)}
-.torn__expert{display:flex;align-items:center;gap:.9rem;text-align:left}
-.torn__expert img{width:66px;height:66px;border-radius:50%;object-fit:cover;
-  border:2px solid var(--brass-soft);flex:none}
-.torn__expert .l{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--brass-soft)}
-.torn__expert .n{font-family:var(--font-display);font-size:1.25rem;color:var(--canvas)}
-@media (max-width:860px){ .torn__in{flex-direction:column} }
+/* The torn brush band that used to sit under the hero is gone, and so are its
+   rules — no page carries class="torn" any more. The cloud join above does the
+   job it was doing, separating the hero from what follows, without asking for
+   the booking before the visitor knows who they are talking to. */
+

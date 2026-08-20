@@ -39,6 +39,10 @@
   <div class="hero__media">
     <img src="assets/hero-tarangire.webp" alt="Aerial view over Tarangire National Park, Tanzania" fetchpriority="high" width="2400" height="1350">
     <video id="heroVid" muted loop playsinline preload="none" poster="assets/hero-tarangire.webp" data-src="assets/hero.mp4" aria-label="Tarangire, elephants, and Mount Kilimanjaro"></video>
+    <svg class="cloud" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path class="cloud__far" d="M0,150 L1200,150 L1200,56 C1170,30 1136,26 1110,50 C1082,20 1030,16 1000,44 C976,26 944,28 922,48 C892,18 842,14 812,44 C786,28 754,30 732,50 C700,22 650,24 622,54 C594,32 560,34 538,54 C510,20 458,18 428,48 C402,30 368,32 346,52 C316,24 266,26 238,56 C210,34 176,38 152,56 C124,32 62,30 30,54 C20,60 10,62 0,58 Z"/>
+      <path class="cloud__near" d="M0,150 L1200,150 L1200,88 C1176,66 1150,60 1128,76 C1104,44 1060,38 1030,66 C1006,50 982,52 964,70 C938,36 888,30 856,64 C832,48 806,50 788,68 C756,42 706,44 678,74 C650,52 618,56 596,76 C568,40 516,36 486,68 C462,52 436,54 418,72 C388,46 340,48 312,78 C286,58 254,60 232,78 C204,50 152,46 122,74 C98,58 62,62 40,80 C28,88 14,92 0,90 Z"/>
+    </svg>
   </div>
   <div class="hero__in hero__in--split">
    <div>
@@ -54,34 +58,57 @@
    </figure>
   </div>
 </section>
-<section class="torn"><div class="torn__ink"><div class="torn__in">
-  <h2>Tailor-make your next journey</h2>
-  <a class="btn btn--brass" href="contact/">Start planning<span class="arw">&#8594;</span></a>
-  <div class="torn__expert">
-    <img src="assets/portrait-emmanuel.webp" alt="Emmanuel, founder and host">
-    <div><div class="l">Talk to Emmanuel</div><div class="n">+255 744 228 747</div></div>
-  </div>
-</div></div></section>
-
-<section class="band band--tight"><div class="wrap">
-  <dl class="facts">
-    <div><dt>Based in</dt><dd>Arusha, Tanzania</dd></div>
-    <div><dt>Hosted by</dt><dd>Emmanuel &amp; Dewi</dd></div>
-    <div><dt>Guiding since</dt><dd>10+ years</dd></div>
-    <div><dt>We run</dt><dd>Safaris · Kilimanjaro · Zanzibar</dd></div>
-  </dl>
-</div></section>
-
-<section class="band"><div class="wrap split">
-  <div class="head"><p class="kicker">Who we are</p>
-    <h2 class="display">A husband and wife who host every journey themselves.</h2></div>
-  <div class="prose">
-    <p class="lede" style="margin-bottom:1.2rem">Together they design and personally host private safaris that combine deep local knowledge with thoughtful planning and high-touch coordination.</p>
-    <p>Emmanuel grew up at the foot of Mount Kilimanjaro and has spent over ten years guiding safaris and working across Northern Tanzania. His field experience and local knowledge shape every journey.</p>
-    <p>Dewi, originally from the Netherlands, met Emmanuel in Tanzania and became deeply involved in the operation. She bridges the gap between Western expectations and on-the-ground execution.</p>
-    <p style="margin-top:1.4rem"><a class="tlink" href="about/">More about us<span class="arw">&#8594;</span></a></p>
+<section class="band band--joined" id="philosophy"><div class="wrap">
+  <div class="head" style="text-align:center;justify-items:center">
+    <p class="kicker">The Emmaventure philosophy</p>
+    <h2 class="display">Three things every journey is built on</h2></div>
+  <div class="grid g3">
+    
+    <div class="rise pill">
+      <img src="assets/icon-context.svg" alt="" aria-hidden="true" width="120" height="120" class="pill__icon" loading="lazy">
+      <h3 style="font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)">Context-Led</h3>
+      <p style="max-width:32ch">Context lies at the heart of our journeys, transforming fleeting moments into deep understanding.</p>
+    </div>
+    <div class="rise pill">
+      <img src="assets/icon-experience.svg" alt="" aria-hidden="true" width="120" height="120" class="pill__icon" loading="lazy">
+      <h3 style="font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)">Experience Facilitated</h3>
+      <p style="max-width:32ch">Every encounter is designed around active engagement, inviting you to be fully present.</p>
+    </div>
+    <div class="rise pill">
+      <img src="assets/icon-reflection.svg" alt="" aria-hidden="true" width="120" height="120" class="pill__icon" loading="lazy">
+      <h3 style="font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)">Reflection Anchored</h3>
+      <p style="max-width:32ch">Guests are invited to uncovering deeper, often transformative insights.</p>
+    </div>
   </div>
 </div></section>
+
+<section class="band band--meet"><div class="wrap meet">
+  <div class="meet__say">
+    <p class="kicker">Who we are</p>
+    <h2 class="display">A husband and wife who host every journey themselves.</h2>
+    <p class="lede">Emmanuel grew up at the foot of Kilimanjaro and has guided in Northern Tanzania for over ten years. Dewi came from the Netherlands, stayed, and now runs the planning. Between them they design and personally host every safari on this site.</p>
+    <dl class="facts">
+      <div><dt>Based in</dt><dd>Arusha, Tanzania</dd></div>
+      <div><dt>Hosted by</dt><dd>Emmanuel &amp; Dewi</dd></div>
+      <div><dt>Guiding since</dt><dd>10+ years</dd></div>
+      <div><dt>We run</dt><dd>Safaris · Kilimanjaro · Zanzibar</dd></div>
+    </dl>
+  </div>
+  <aside class="meet__ask">
+    <div class="meet__who">
+      <img src="assets/portrait-emmanuel.webp" alt="Emmanuel, founder and host" width="160" height="160" loading="lazy">
+      <div><span class="l">Talk to Emmanuel</span><span class="n">+255 744 228 747</span></div>
+    </div>
+    <p class="meet__note">Tell us roughly when and how long. You will get a costed day-by-day plan, not a brochure.</p>
+    <div class="meet__cta">
+      <a class="btn btn--brass" href="contact/">Start planning<span class="arw">&#8594;</span></a>
+      <a class="btn btn--line" href="https://wa.me/255744228747?text=Hello%20Emmanuel%20%E2%80%94%20I%20would%20like%20to%20plan%20a%20journey%20in%20Tanzania." target="_blank" rel="noopener">WhatsApp us<span class="arw">&#8594;</span></a>
+    </div>
+    <p class="meet__more"><a class="tlink" href="about/">More about us<span class="arw">&#8594;</span></a></p>
+  </aside>
+</div></section>
+
+
 
 <section class="band band--s"><div class="wrap">
   <div class="head"><p class="kicker">Signature journeys</p>
@@ -156,29 +183,7 @@
   <p style="margin-top:2rem"><a class="tlink" href="journeys/">All journeys<span class="arw">&#8594;</span></a></p>
 </div></section>
 
-<section class="band"><div class="wrap">
-  <div class="head" style="text-align:center;justify-items:center">
-    <p class="kicker">The Emmaventure philosophy</p>
-    <h2 class="display">Three things every journey is built on</h2></div>
-  <div class="grid g3">
-    
-    <div class="rise pill">
-      <img src="assets/icon-context.svg" alt="" aria-hidden="true" width="120" height="120" class="pill__icon" loading="lazy">
-      <h3 style="font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)">Context-Led</h3>
-      <p style="max-width:32ch">Context lies at the heart of our journeys, transforming fleeting moments into deep understanding.</p>
-    </div>
-    <div class="rise pill">
-      <img src="assets/icon-experience.svg" alt="" aria-hidden="true" width="120" height="120" class="pill__icon" loading="lazy">
-      <h3 style="font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)">Experience Facilitated</h3>
-      <p style="max-width:32ch">Every encounter is designed around active engagement, inviting you to be fully present.</p>
-    </div>
-    <div class="rise pill">
-      <img src="assets/icon-reflection.svg" alt="" aria-hidden="true" width="120" height="120" class="pill__icon" loading="lazy">
-      <h3 style="font-family:var(--font-hand);font-weight:600;font-size:2rem;line-height:1.15;color:var(--ink)">Reflection Anchored</h3>
-      <p style="max-width:32ch">Guests are invited to uncovering deeper, often transformative insights.</p>
-    </div>
-  </div>
-</div></section>
+
 
 <section class="band band--s"><div class="wrap">
   <div class="head"><p class="kicker">Where you will go</p><h2 class="display">Destinations</h2></div>
