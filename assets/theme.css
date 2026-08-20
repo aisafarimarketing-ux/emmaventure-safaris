@@ -309,6 +309,50 @@ p{margin:0}
   .hero__phil{margin-top:.6rem}
 }
 
+/* --- the editorial details -------------------------------------------------
+   A short gold rule under the kicker, and hairlines carrying a small diamond.
+   Individually these are nearly invisible; together they are what makes the
+   two columns read as one composition instead of two things placed near each
+   other. The hollow diamond marks the headline break, the filled ones separate
+   the principles — same motif, two weights.
+   -------------------------------------------------------------------------- */
+.hero__in--split .kicker{position:relative;padding-bottom:.85rem}
+.hero__in--split .kicker::after{content:"";position:absolute;left:0;bottom:0;
+  width:3.2rem;height:1px;background:var(--signal)}
+
+/* overflow:visible — the UA stylesheet gives <hr> overflow:hidden, which clipped
+   the diamond to the rule's own 1px height and left two angled slivers. */
+.drule{position:relative;height:1px;border:0;margin:0 0 1.5rem;overflow:visible;
+  background:var(--hairline);max-width:34rem}
+.drule::after{content:"";position:absolute;top:50%;left:50%;
+  width:9px;height:9px;transform:translate(-50%,-50%) rotate(45deg)}
+.drule--open::after{border:1px solid var(--signal);background:var(--canvas)}
+.drule--solid::after{background:var(--signal)}
+
+/* --- the panel -------------------------------------------------------------
+   A hairline with chamfered corners. clip-path cuts the bordered box itself,
+   so the corners are mitred rather than drawn on top — which is why this is one
+   element and not four absolutely-positioned corner marks.
+   -------------------------------------------------------------------------- */
+.hero__phil{position:relative;padding:clamp(1.9rem,3.2vw,3rem) clamp(1.6rem,2.6vw,2.5rem)}
+/* A plain closed hairline, NOT a chamfer.
+   clip-path on a bordered box removes the corner without drawing the diagonal,
+   so the frame came out as four disconnected lines with open corners — worse
+   than no detail at all. If the notched corner is wanted it has to be a drawn
+   path, not a clipped border. */
+.hero__phil::before{content:"";position:absolute;inset:0;pointer-events:none;
+  border:1px solid var(--hairline)}
+.hero__phil > *{position:relative}
+
+/* the principles sit inside the panel, divided by rule-and-diamond */
+.prin li{padding-top:clamp(1.3rem,2.1vw,1.9rem);border-top:0;position:relative}
+.prin li + li::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--hairline)}
+.prin li + li::after{content:"";position:absolute;top:0;left:50%;
+  width:8px;height:8px;background:var(--signal);
+  transform:translate(-50%,-50%) rotate(45deg)}
+.prin img{width:clamp(64px,6.2vw,86px);height:clamp(64px,6.2vw,86px)}
+
 /* numbered principles */
 .principle{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;padding-top:1.5rem;border-top:1px solid var(--hairline)}
 .principle__n{font-family:var(--font-mono);font-size:.8125rem;color:var(--brass);font-variant-numeric:tabular-nums}
@@ -407,7 +451,10 @@ p{margin:0}
 }
 
 /* hero copy band as a split: words left, one portrait image right */
-.hero__in--split{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+/* 1.14 / .86 and a wider gutter. The reference's own closing note: the panel
+   wants to be 5-8% narrower so the headline has room to be the loudest thing
+   on the screen rather than being crowded against it. */
+.hero__in--split{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
   gap:clamp(2rem,5vw,5rem);align-items:center}
 .hero__fig{margin:0;position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid var(--hairline)}
 .hero__fig img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 34%)}
