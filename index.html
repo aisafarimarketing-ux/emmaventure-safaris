@@ -100,10 +100,19 @@
       <div><span class="l">Talk to Emmanuel</span><span class="n">+255 744 228 747</span></div>
     </div>
     <p class="meet__note">Tell us roughly when and how long. You will get a costed day-by-day plan, not a brochure.</p>
-    <div class="meet__cta">
-      <a class="btn btn--brass" href="contact/">Start planning<span class="arw">&#8594;</span></a>
-      <a class="btn btn--line" href="https://wa.me/255744228747?text=Hello%20Emmanuel%20%E2%80%94%20I%20would%20like%20to%20plan%20a%20journey%20in%20Tanzania." target="_blank" rel="noopener">WhatsApp us<span class="arw">&#8594;</span></a>
-    </div>
+    <form class="meet__form" onsubmit="event.preventDefault();var f=new FormData(this);var l=['Enquiry from the website','','Name: '+(f.get('name')||'—'),'Email: '+(f.get('email')||'—'),'Dates: '+(f.get('dates')||'—'),'Travellers: '+(f.get('people')||'—'),'','Notes: '+(f.get('notes')||'—')];window.open('https://wa.me/255744228747?text='+encodeURIComponent(l.join('\n')),'_blank','noopener');">
+      <div class="field"><label for="mn">Your name</label><input id="mn" name="name" autocomplete="name"></div>
+      <div class="field"><label for="me">Email</label><input id="me" name="email" type="email" autocomplete="email"></div>
+      <div class="meet__pair">
+        <div class="field"><label for="md">Approximate dates</label><input id="md" name="dates" placeholder="e.g. July 2027"></div>
+        <div class="field"><label for="mp">Travelling</label><input id="mp" name="people" placeholder="e.g. 2 adults"></div>
+      </div>
+      <div class="field"><label for="mo">Anything else</label><textarea id="mo" name="notes" rows="3"></textarea></div>
+      <div class="meet__cta">
+        <button class="btn btn--brass" type="submit">Send enquiry<span class="arw">&#8594;</span></button>
+        <a class="btn btn--line" href="https://wa.me/255744228747?text=Hello%20Emmanuel%20%E2%80%94%20I%20would%20like%20to%20plan%20a%20journey%20in%20Tanzania." target="_blank" rel="noopener">WhatsApp us<span class="arw">&#8594;</span></a>
+      </div>
+    </form>
     <p class="meet__more"><a class="tlink" href="about/">More about us<span class="arw">&#8594;</span></a></p>
   </aside>
 </div></section>

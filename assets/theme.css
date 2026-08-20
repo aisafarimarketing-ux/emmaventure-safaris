@@ -157,7 +157,7 @@ p{margin:0}
 
 /* ---------- hero: footage block, copy on canvas. No overlay, no scrim. ---------- */
 .hero{background:var(--canvas)}
-.hero__media{position:relative;width:100%;height:clamp(21rem,68vh,46rem);overflow:hidden;background:var(--ebony)}
+.hero__media{position:relative;width:100%;height:clamp(26rem,84vh,56rem);overflow:hidden;background:var(--ebony)}
 .hero__media img,.hero__media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   /* Upper third, not centre. Photographers put faces and horizons there, so a
      centred cover crop takes the head off first — which is exactly what the
@@ -170,7 +170,10 @@ p{margin:0}
    bottom edge, it is not a wash laid over any text */
 /* No gradient, no feather, no shadow on the hero. The footage is full bleed
    and ends on a hairline; the copy sits on the paper band beneath it. */
-.hero__in{max-width:var(--maxw);margin-inline:auto;padding:clamp(2.4rem,4vw,3.6rem) var(--gut) clamp(3rem,5vw,4.6rem);position:relative;z-index:2}
+/* Top padding was clamp(2.4rem,4vw,3.6rem) — 57.6px at 1440, under a 130px
+   cloud, which read as a band of empty paper rather than as breathing room.
+   A third of that, and the footage above grows to take the rest. */
+.hero__in{max-width:var(--maxw);margin-inline:auto;padding:clamp(.85rem,1.3vw,1.2rem) var(--gut) clamp(3rem,5vw,4.6rem);position:relative;z-index:2}
 .hero__cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
 /* Was clamp(15rem,42vh,26rem) — 377px at 1440, a 3.8:1 letterbox that kept
    39% of a 3:2 photograph. A page banner has to be tall enough to hold a
@@ -231,13 +234,30 @@ p{margin:0}
    -------------------------------------------------------------------------- */
 .cloud{
   position:absolute;left:0;right:0;bottom:-1px;
-  width:100%;height:clamp(64px,9vw,132px);
+  width:100%;height:clamp(110px,17vw,240px);
   display:block;pointer-events:none;z-index:2;
 }
-/* The far layer is blurred as well as pale. A crisp second edge just reads as a
-   second border; softened, it reads as depth in the air. */
-.cloud__far{fill:var(--canvas);opacity:.5;filter:blur(7px)}
-.cloud__near{fill:var(--canvas)}
+/* Both layers are blurred past the point of having an edge. The near one still
+   reaches full opacity at the bottom, so the paper is solid where it meets the
+   band; the far one only tints the air above it. */
+.cloud__far{fill:var(--canvas);opacity:.5;filter:blur(34px)}
+.cloud__near{fill:var(--canvas);filter:blur(18px)}
+
+/* The gradient does most of the work. Five stops rather than two: a two-stop
+   fade over this distance bands visibly on a wide screen. It is the page
+   colour, not a grey wash — the footage keeps its own colour all the way down
+   and simply runs out of opacity. */
+.hero__media::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:34%;
+  z-index:1;pointer-events:none;
+  background:linear-gradient(to top,
+    var(--canvas) 0%,
+    color-mix(in srgb, var(--canvas) 92%, transparent) 16%,
+    color-mix(in srgb, var(--canvas) 68%, transparent) 36%,
+    color-mix(in srgb, var(--canvas) 36%, transparent) 58%,
+    color-mix(in srgb, var(--canvas) 12%, transparent) 78%,
+    transparent 100%);
+}
 
 /* The band that continues out of the hero carries no top rule and starts close,
    so the philosophy reads as the next breath rather than the next section. */
@@ -249,22 +269,38 @@ p{margin:0}
    they are, the four facts, the person who answers, and the two calls. The
    long version lives on /about, which is what the link at the end is for.
    -------------------------------------------------------------------------- */
-.meet{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
-  gap:clamp(2rem,4.5vw,4.5rem);align-items:start}
+.meet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(2rem,4.5vw,4.5rem);align-items:stretch}
 .meet__say .display{margin:.7rem 0 1.1rem}
-.meet__say .facts{margin-top:clamp(1.6rem,2.6vw,2.2rem)}
+/* Two by two, not four across: the column is half the band now and four
+   auto-fit tracks wrapped 3 + 1, which left one cell hanging. */
+.meet__say .facts{margin-top:clamp(1.6rem,2.6vw,2.2rem);
+  grid-template-columns:repeat(2,minmax(0,1fr))}
 
-.meet__ask{display:grid;gap:1.15rem;padding:clamp(1.5rem,2.6vw,2rem);
+/* The card runs the full height of the band because the enquiry fills it, not
+   because four items were pushed apart to reach the bottom. align-content is
+   `start`: space-between on an 850px card left holes you could park in. */
+.meet__ask{display:grid;gap:1.1rem;align-content:start;
+  padding:clamp(1.6rem,3vw,2.4rem);
   background:var(--surface);border:1px solid var(--hairline)}
+.meet__form{display:grid;gap:.95rem}
+.meet__pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.95rem}
+.meet__ask .field input,.meet__ask .field textarea{background:var(--canvas)}
+.meet__ask .btn{flex:1 1 auto;justify-content:center}
+.meet__more{margin-top:.1rem}
 .meet__who{display:flex;align-items:center;gap:.9rem}
-.meet__who img{width:66px;height:66px;border-radius:50%;object-fit:cover;
-  object-position:50% 30%;border:2px solid var(--brass);flex:none}
+.meet__who img{width:84px;height:84px;border-radius:50%;object-fit:cover;
+  /* 0%, not 30%. A 1:1 crop of this 2:3 portrait keeps two thirds of the frame
+     height; at 30% the window opened at 15% and took the top of his head off,
+     and 6% still clipped it. Zero is the highest the window goes, which is what
+     this photograph needs — his head starts about 5% down. Per-image focal
+     points, never a component-wide guess. */
+  object-position:50% 0%;border:2px solid var(--brass);flex:none}
 .meet__who .l{display:block;font-family:var(--font-mono);font-size:.75rem;
   letter-spacing:.18em;text-transform:uppercase;color:var(--brass)}   /* 6.15 on sand */
 .meet__who .n{display:block;font-family:var(--font-display);font-size:1.25rem;color:var(--ink)}
-.meet__note{font-size:1rem;color:var(--body)}
-.meet__cta{display:flex;gap:.7rem;flex-wrap:wrap}
-.meet__more{margin-top:.2rem}
+.meet__note{font-size:1.0625rem;line-height:1.65;color:var(--body)}
+.meet__cta{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.25rem}
 
 @media (max-width:860px){
   .meet{grid-template-columns:minmax(0,1fr)}
@@ -274,7 +310,7 @@ p{margin:0}
      doily. Overflowing the SVG sideways shows five or six lobes at something
      near their drawn proportion instead. preserveAspectRatio cannot be set from
      CSS, so this is the way to do it without a second copy of the markup. */
-  .cloud{width:260%;left:-80%;right:auto;height:clamp(56px,14vw,96px)}
+  .cloud{width:260%;left:-80%;right:auto;height:clamp(96px,26vw,170px)}
 }
 
 /* numbered principles */
