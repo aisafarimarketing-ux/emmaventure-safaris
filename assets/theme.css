@@ -55,7 +55,12 @@
   --ease:cubic-bezier(.16,1,.3,1);
   --ease-quart:cubic-bezier(.25,1,.5,1);
   --gut:clamp(1.25rem,4.6vw,5.5rem);
-  --maxw:80rem;
+  /* 80rem left 408px of dead paper on each side of a 1920 screen — the page
+     read as a narrow column floating in the middle of the display. min() so it
+     also widens the 1440 case without running the line lengths off a very wide
+     monitor: the cap is the readability limit, the 94vw is what stops the page
+     touching the bezel. Prose stays capped separately (.lede is 40ch). */
+  --maxw:min(108rem,94vw);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -248,7 +253,7 @@ p{margin:0}
 /* Same inset as the card, and the facts pushed to the bottom, so both columns
    start on one line and finish on another. */
 .meet__say{display:grid;align-content:space-between;gap:1.6rem;
-  padding-block:var(--inset-y)}
+  padding-top:var(--inset-y)}
 .meet__say .display{margin:.7rem 0 1.1rem}
 /* Two by two, not four across: the column is half the band now and four
    auto-fit tracks wrapped 3 + 1, which left one cell hanging. */
@@ -284,7 +289,7 @@ p{margin:0}
   /* Stacked, there is no second column to line up with: the inset and the
      space-between are only there to make two columns agree, and on one column
      they are just empty space. */
-  .meet__say,.hero__lead{align-content:start;padding-block:0}
+  .meet__say,.hero__lead{align-content:start;padding-top:0}
   .meet__ask{align-content:start}
   .prin{align-content:start}
   .hero__phil{grid-template-rows:none}
@@ -359,8 +364,13 @@ p{margin:0}
 /* The left column: top group and buttons, pushed apart so the buttons finish on
    the same rule the panel's last principle does. Same inset, so the first lines
    agree too. */
+/* Top inset only.
+   With a bottom inset too, the buttons stopped an inset above the box bottom —
+   and the box bottom is where the panel's frame is drawn, so the two sides
+   still did not finish on one line. The plain column has no frame to inset
+   from: its last block IS its bottom edge. */
 .hero__lead{display:grid;align-content:space-between;gap:2rem;
-  padding-block:var(--inset-y)}
+  padding-top:var(--inset-y)}
 
 /* The three principles spread through whatever height the panel is given. The
    rule-and-diamond between them is what makes that spread read as rhythm
@@ -398,7 +408,11 @@ p{margin:0}
 .person p{font-size:.98rem;color:var(--body)}
 
 /* facts strip */
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));
+/* margin:0 — .facts is a <dl>, and the UA stylesheet gives dl a 1em block
+   margin. That 17px sat under the last row and left the facts box finishing
+   17px above the contact card beside it, which is exactly the misalignment
+   that survived the last fix. */
+.facts{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));
   border-top:1px solid var(--hairline);border-left:1px solid var(--hairline)}
 .facts div{padding:1.15rem 1.2rem;border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
 .facts dt{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
