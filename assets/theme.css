@@ -126,13 +126,16 @@ p{margin:0}
 .btn--line{background:transparent;color:var(--ink);border-color:var(--hairline-2)}
 .btn--line:hover{border-color:var(--ink);background:var(--surface)}
 .btn .arw{width:1.35rem;height:1.35rem;border:1px solid currentColor;border-radius:50%;
-  display:grid;place-items:center;font-size:.68rem;flex:none;transition:transform .28s var(--ease)}
+  /* 12px, not .68rem. It is a decorative glyph inside a 44px control and it is
+     aria-hidden, but 10.9px trips the type floor in the audit and a floor you
+     have to remember the exceptions to is not a floor. */
+  display:grid;place-items:center;font-size:.75rem;flex:none;transition:transform .28s var(--ease)}
 .btn:hover .arw{transform:translateX(.2rem)}
 .tlink{font-family:var(--font-mono);font-size:.8125rem;letter-spacing:.12em;text-transform:uppercase;
   color:var(--brass-soft);text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;min-height:44px}
 .tlink:hover{color:var(--ink)}
 .tlink .arw{width:1.3rem;height:1.3rem;border:1px solid currentColor;border-radius:50%;
-  display:grid;place-items:center;font-size:.64rem;transition:transform .28s var(--ease)}
+  display:grid;place-items:center;font-size:.75rem;transition:transform .28s var(--ease)}
 .tlink:hover .arw{transform:translateX(.2rem)}
 
 /* ---------- bands ---------- */
@@ -239,19 +242,23 @@ p{margin:0}
    they are, the four facts, the person who answers, and the two calls. The
    long version lives on /about, which is what the link at the end is for.
    -------------------------------------------------------------------------- */
-.meet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+.meet{--inset-y:clamp(1.6rem,3vw,2.4rem);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:clamp(2rem,4.5vw,4.5rem);align-items:stretch}
+/* Same inset as the card, and the facts pushed to the bottom, so both columns
+   start on one line and finish on another. */
+.meet__say{display:grid;align-content:space-between;gap:1.6rem;
+  padding-block:var(--inset-y)}
 .meet__say .display{margin:.7rem 0 1.1rem}
 /* Two by two, not four across: the column is half the band now and four
    auto-fit tracks wrapped 3 + 1, which left one cell hanging. */
-.meet__say .facts{margin-top:clamp(1.6rem,2.6vw,2.2rem);
-  grid-template-columns:repeat(2,minmax(0,1fr))}
+.meet__say .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
 
 /* The card runs the full height of the band because the enquiry fills it, not
    because four items were pushed apart to reach the bottom. align-content is
    `start`: space-between on an 850px card left holes you could park in. */
-.meet__ask{display:grid;gap:1.1rem;align-content:start;
-  padding:clamp(1.6rem,3vw,2.4rem);
+.meet__ask{display:grid;gap:1.1rem;align-content:space-between;
+  padding:var(--inset-y) clamp(1.6rem,3vw,2.4rem);
   background:var(--surface);border:1px solid var(--hairline)}
 .meet__form{display:grid;gap:.95rem}
 .meet__pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.95rem}
@@ -274,6 +281,13 @@ p{margin:0}
 
 @media (max-width:860px){
   .meet{grid-template-columns:minmax(0,1fr)}
+  /* Stacked, there is no second column to line up with: the inset and the
+     space-between are only there to make two columns agree, and on one column
+     they are just empty space. */
+  .meet__say,.hero__lead{align-content:start;padding-block:0}
+  .meet__ask{align-content:start}
+  .prin{align-content:start}
+  .hero__phil{grid-template-rows:none}
 }
 
 
@@ -334,7 +348,24 @@ p{margin:0}
    so the corners are mitred rather than drawn on top — which is why this is one
    element and not four absolutely-positioned corner marks.
    -------------------------------------------------------------------------- */
-.hero__phil{position:relative;padding:clamp(1.9rem,3.2vw,3rem) clamp(1.6rem,2.6vw,2.5rem)}
+/* One variable for the panel's inset, used by the panel AND by the plain
+   column beside it. Two hand-typed numbers would drift the moment either is
+   touched, and the whole point is that the two sides start and end together. */
+.hero__in--split{--inset-y:clamp(1.9rem,3.2vw,3rem)}
+.hero__phil{position:relative;align-self:auto;
+  padding:var(--inset-y) clamp(1.6rem,2.6vw,2.5rem);
+  display:grid;grid-template-rows:auto auto minmax(0,1fr)}
+
+/* The left column: top group and buttons, pushed apart so the buttons finish on
+   the same rule the panel's last principle does. Same inset, so the first lines
+   agree too. */
+.hero__lead{display:grid;align-content:space-between;gap:2rem;
+  padding-block:var(--inset-y)}
+
+/* The three principles spread through whatever height the panel is given. The
+   rule-and-diamond between them is what makes that spread read as rhythm
+   rather than as holes — it would not work without the dividers. */
+.prin{align-content:space-between;height:100%}
 /* A plain closed hairline, NOT a chamfer.
    clip-path on a bordered box removes the corner without drawing the diagonal,
    so the frame came out as four disconnected lines with open corners — worse
@@ -454,8 +485,12 @@ p{margin:0}
 /* 1.14 / .86 and a wider gutter. The reference's own closing note: the panel
    wants to be 5-8% narrower so the headline has room to be the loudest thing
    on the screen rather than being crowded against it. */
-.hero__in--split{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
-  gap:clamp(2rem,5vw,5rem);align-items:center}
+/* One align-items, not two. The rule already ended with align-items:center from
+   when the leopard sat here, so the stretch added at the front was overridden by
+   a duplicate on the next line and the columns kept centring. */
+.hero__in--split{display:grid;align-items:stretch;
+  grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
+  gap:clamp(2.5rem,5.5vw,5.5rem)}
 .hero__fig{margin:0;position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid var(--hairline)}
 .hero__fig img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 34%)}
 .hero__fig figcaption{position:absolute;left:0;right:0;bottom:0;padding:.85rem 1rem;
